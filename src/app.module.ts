@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
-import { LoggerModule } from 'nestjs-pino';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
+import { Module } from '@nestjs/common'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { LoggerModule } from 'nestjs-pino'
+import { UsersModule } from './users/users.module'
 
 @Module({
   imports: [
     LoggerModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
-        const isProduction = configService.get('NODE_ENV') === 'production';
+        const isProduction = configService.get('NODE_ENV') === 'production'
 
         return {
           pinoHttp: {
@@ -22,7 +22,7 @@ import { UsersModule } from './users/users.module';
                 },
             level: isProduction ? 'info' : 'debug',
           },
-        };
+        }
       },
       inject: [ConfigService],
     }),

@@ -1,9 +1,14 @@
-import { IsEmail, IsStrongPassword } from 'class-validator';
+import { IsEmail, IsStrongPassword } from 'class-validator'
 
 export class CreateUserRequest {
   @IsEmail()
-  email: string;
+  email: string
 
   @IsStrongPassword()
-  password: string;
+  password: string
+}
+
+export class CreateUserRequestOutput {
+  email: string
+  id: number
 }
