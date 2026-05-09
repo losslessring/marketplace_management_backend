@@ -7,6 +7,8 @@ import {
   CreateUserRequestOutput,
 } from './dto/create-user.request'
 
+import { Prisma } from '@prisma/client'
+
 @Injectable()
 export class UsersService {
   constructor(private readonly prismaService: PrismaService) {}
@@ -27,5 +29,11 @@ export class UsersService {
         throw new UnprocessableEntityException('Email already exists.')
       }
     }
+  }
+
+  async getUser(filter: Prisma.UserWhereUniqueInput) {
+    return this.prismaService.user.findUniqueOrThrow({
+      where: filter,
+    })
   }
 }
