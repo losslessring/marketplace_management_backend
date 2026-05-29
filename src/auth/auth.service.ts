@@ -40,13 +40,15 @@ export class AuthService {
   async verifyUser(email: string, password: string) {
     try {
       const user = await this.usersService.getUser({ email })
+
       const authenticated = await bcrypt.compare(password, user.password)
       if (!authenticated) {
-        throw new UnauthorizedException()
+        throw new UnauthorizedException('Wrong password')
       }
       return user
     } catch (err) {
-      throw new UnauthorizedException('Credentials are not valid.')
+      //throw new UnauthorizedException('Credentials are not valid.')
+      throw new UnauthorizedException(err.message)
     }
   }
 }
