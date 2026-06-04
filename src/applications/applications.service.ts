@@ -13,4 +13,14 @@ export class ApplicationsService {
       },
     })
   }
+
+  async getApplications(userId: number) {
+    return this.prismaService.application.findMany({
+      where: {
+        userId: {
+          equals: userId,
+        },
+      },
+    })
+  }
 }
