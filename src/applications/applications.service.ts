@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service'
 import { CreateApplicationRequest } from './dto/create-application.request'
 
@@ -22,5 +22,19 @@ export class ApplicationsService {
         },
       },
     })
+  }
+
+  async getApplication(applicationId: number) {
+    try {
+      return {
+        ...(await this.prismaService.application.findUniqueOrThrow({
+          where: { id: applicationId },
+        })),
+      }
+    } catch (err) {
+      throw new NotFoundException(
+        `Application with ID ${applicationId} was not found`,
+      )
+    }
   }
 }

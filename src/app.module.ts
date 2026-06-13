@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { LoggerModule } from 'nestjs-pino'
+import { ApplicationsModule } from './applications/applications.module'
 import { AuthModule } from './auth/auth.module'
+import { CoreNodesModule } from './core-nodes/core-nodes.module'
 import { UsersModule } from './users/users.module'
-import { ApplicationsModule } from './applications/applications.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ApplicationsModule } from './applications/applications.module';
     UsersModule,
     AuthModule,
     ApplicationsModule,
+    CoreNodesModule,
   ],
   controllers: [],
   providers: [],

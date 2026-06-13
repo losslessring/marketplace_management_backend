@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common'
 import { CurrentUser } from 'src/auth/current-user.decorator'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 import { TokenPayload } from 'src/auth/token-payload.interface'
@@ -21,5 +21,11 @@ export class ApplicationsController {
   @UseGuards(JwtAuthGuard)
   async getApplications(@CurrentUser() user: TokenPayload) {
     return this.applicationService.getApplications(user.userId)
+  }
+
+  @Get(':applicationId')
+  @UseGuards(JwtAuthGuard)
+  async getApplication(@Param('applicationId') applicationId: string) {
+    return this.applicationService.getApplication(+applicationId)
   }
 }
