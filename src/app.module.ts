@@ -5,6 +5,7 @@ import { ApplicationsModule } from './applications/applications.module'
 import { AuthModule } from './auth/auth.module'
 import { CoreNodesModule } from './core-nodes/core-nodes.module'
 import { UsersModule } from './users/users.module'
+import { NodeTreeModule } from './node-tree/node-tree.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UsersModule } from './users/users.module'
     AuthModule,
     ApplicationsModule,
     CoreNodesModule,
+    NodeTreeModule,
   ],
   controllers: [],
   providers: [],
