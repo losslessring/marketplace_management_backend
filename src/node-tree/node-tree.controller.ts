@@ -1,8 +1,8 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common'
 import { CurrentUser } from 'src/auth/current-user.decorator'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 import { TokenPayload } from 'src/auth/token-payload.interface'
-import { CreateTreeNodeRequest } from './dto/create-tree-node.request'
+import { CreateTreeNodesRequest } from './dto/create-tree-nodes.request'
 import { NodeTreeService } from './node-tree.service'
 
 @Controller('node-tree')
@@ -10,8 +10,8 @@ export class NodeTreeController {
   constructor(private readonly nodeTreeService: NodeTreeService) {}
   @Post()
   @UseGuards(JwtAuthGuard)
-  async createCoreNode(
-    @Body() body: CreateTreeNodeRequest,
+  async createTreeNodes(
+    @Body() body: CreateTreeNodesRequest,
     @CurrentUser() user: TokenPayload,
   ) {
     return this.nodeTreeService.createTreeNode(body, user.userId)
@@ -23,9 +23,9 @@ export class NodeTreeController {
   //     return this.coreNodeService.getCoreNodes()
   //   }
 
-  //   @Get(':CoreNodeId')
-  //   @UseGuards(JwtAuthGuard)
-  //   async getCoreNode(@Param('CoreNodeId') CoreNodeId: string) {
-  //     return this.coreNodeService.getCoreNode(+CoreNodeId)
-  //   }
+  @Get(':ApplicationId')
+  @UseGuards(JwtAuthGuard)
+  async getApplicationNodes(@Param('ApplicationId') applicationId: string) {
+    return this.nodeTreeService.getApplicationNodes(+applicationId)
+  }
 }

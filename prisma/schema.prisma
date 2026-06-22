@@ -25,16 +25,14 @@ model Application {
 
 model CoreNode {
   id Int @default(autoincrement()) @id
-  name String
-  nodeTrees NodeTree[]
+  name String 
 }
 
 
 model NodeTree {
   id Int @default(autoincrement()) @id
   positionX Int
-  positionY Int
-  node CoreNode @relation(fields: [nodeId], references: [id])
+  positionY Int 
   nodeId Int
   application Application @relation(fields: [applicationId], references: [id])
   applicationId Int

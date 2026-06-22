@@ -4,12 +4,12 @@ import {
   NotFoundException,
 } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service'
-import { CreateTreeNodeRequest } from './dto/create-tree-node.request'
+import { CreateTreeNodesRequest } from './dto/create-tree-nodes.request'
 
 @Injectable()
 export class NodeTreeService {
   constructor(private readonly prismaService: PrismaService) {}
-  async createTreeNode(data: CreateTreeNodeRequest, userId: number) {
+  async createTreeNode(data: CreateTreeNodesRequest, userId: number) {
     const application = await this.prismaService.application.findUnique({
       where: { id: data.applicationId },
     })
@@ -25,7 +25,20 @@ export class NodeTreeService {
         `Application with id ${data.applicationId} does not belong to User with id ${userId}`,
       )
     }
-    return this.prismaService.nodeTree.create({ data })
+
+    const labeledNodes = data.nodes.map((node) => ({
+      ...node,
+      applicationId: data.applicationId,
+    }))
+
+    return this.prismaService.nodeTree.createMany({ data: labeledNodes })
+  }
+
+  async getApplicationNodes(applicationId: number) {
+    return await this.prismaService.nodeTree.findMany({
+      select: { positionX: true, positionY: true, nodeId: true },
+      where: { applicationId },
+    })
   }
 
   //   async getCoreNodes() {

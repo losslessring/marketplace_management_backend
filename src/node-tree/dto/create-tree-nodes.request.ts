@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber } from 'class-validator'
 
-export class CreateTreeNodeRequest {
+class CreateTreeNode {
   @IsNotEmpty()
   @IsNumber()
   positionX: number
@@ -12,6 +12,11 @@ export class CreateTreeNodeRequest {
   @IsNotEmpty()
   @IsNumber()
   nodeId: number
+}
+
+export class CreateTreeNodesRequest {
+  @IsNotEmpty()
+  nodes: CreateTreeNode[]
 
   @IsNotEmpty()
   @IsNumber()
