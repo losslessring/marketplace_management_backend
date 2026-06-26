@@ -4,8 +4,8 @@ import { LoggerModule } from 'nestjs-pino'
 import { ApplicationsModule } from './applications/applications.module'
 import { AuthModule } from './auth/auth.module'
 import { CoreNodesModule } from './core-nodes/core-nodes.module'
+import { NodeTreeModule } from './node-tree/node-tree.module'
 import { UsersModule } from './users/users.module'
-import { NodeTreeModule } from './node-tree/node-tree.module';
 
 @Module({
   imports: [
@@ -21,7 +21,9 @@ import { NodeTreeModule } from './node-tree/node-tree.module';
               : {
                   target: 'pino-pretty',
                   options: {
-                    singleLine: true,
+                    singleLine: false,
+
+                    ignore: 'req.headers',
                   },
                 },
             level: isProduction ? 'info' : 'debug',

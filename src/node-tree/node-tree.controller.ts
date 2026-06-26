@@ -28,7 +28,8 @@ export class NodeTreeController {
   }
 
   @Put()
-  @UseGuards(JwtAuthGuard, UserApplicationGuard)
+  //@UseGuards(JwtAuthGuard, UserApplicationGuard)
+  @UseGuards(JwtAuthGuard)
   async fullUpdateTreeNodes(
     @Body() body: FullUpdateTreeNodes,
     @CurrentUser() user: TokenPayload,
@@ -43,7 +44,7 @@ export class NodeTreeController {
   //   }
 
   @Get(':ApplicationId')
-  @UseGuards(JwtAuthGuard, UserApplicationGuard)
+  @UseGuards(JwtAuthGuard)
   async getApplicationNodes(@Param('ApplicationId') applicationId: string) {
     return this.nodeTreeService.getApplicationNodes(+applicationId)
   }

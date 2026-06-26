@@ -38,7 +38,7 @@ export class NodeTreeService {
       applicationId: data.applicationId,
     }))
 
-    await this.prismaService.$transaction([
+    return await this.prismaService.$transaction([
       this.prismaService.nodeTree.deleteMany({
         where: { applicationId: data.applicationId },
       }),

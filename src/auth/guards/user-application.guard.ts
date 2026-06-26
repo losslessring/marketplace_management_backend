@@ -12,6 +12,11 @@ export class UserApplicationGuard implements CanActivate {
   constructor(private readonly prismaService: PrismaService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest()
+    // console.log('Application id = ', request.body.applicationId)
+
+    if (request.body.applicationId) {
+      throw new ForbiddenException(`Application id was not provided`)
+    }
 
     const application = await this.prismaService.application.findUnique({
       where: { id: request.body.applicationId },
