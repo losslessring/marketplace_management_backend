@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module'
 import { CoreNodesModule } from './core-nodes/core-nodes.module'
 import { NodeTreeModule } from './node-tree/node-tree.module'
 import { UsersModule } from './users/users.module'
+import { ConnectionsModule } from './connections/connections.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { UsersModule } from './users/users.module'
     ApplicationsModule,
     CoreNodesModule,
     NodeTreeModule,
+    ConnectionsModule,
   ],
   controllers: [],
   providers: [],

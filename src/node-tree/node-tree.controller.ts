@@ -28,7 +28,6 @@ export class NodeTreeController {
   }
 
   @Put()
-  //@UseGuards(JwtAuthGuard, UserApplicationGuard)
   @UseGuards(JwtAuthGuard)
   async fullUpdateTreeNodes(
     @Body() body: FullUpdateTreeNodes,
@@ -36,12 +35,6 @@ export class NodeTreeController {
   ) {
     return this.nodeTreeService.fullUpdateTreeNodes(user.userId, body)
   }
-
-  //   @Get()
-  //   @UseGuards(JwtAuthGuard)
-  //   async getCoreNodes(@CurrentUser() user: TokenPayload) {
-  //     return this.coreNodeService.getCoreNodes()
-  //   }
 
   @Get(':ApplicationId')
   @UseGuards(JwtAuthGuard)

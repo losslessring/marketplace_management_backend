@@ -52,22 +52,4 @@ export class NodeTreeService {
       where: { applicationId },
     })
   }
-
-  //   async getCoreNodes() {
-  //     return this.prismaService.coreNode.findMany({})
-  //   }
-
-  //   async getCoreNode(CoreNodeId: number) {
-  //     try {
-  //       return {
-  //         ...(await this.prismaService.coreNode.findUniqueOrThrow({
-  //           where: { id: CoreNodeId },
-  //         })),
-  //       }
-  //     } catch (err) {
-  //       throw new NotFoundException(
-  //         `CoreNode with ID ${CoreNodeId} was not found`,
-  //       )
-  //     }
-  //   }
 }

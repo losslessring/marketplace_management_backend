@@ -1,0 +1,6 @@
+Command for prisma model database migration
+npx prisma migrate dev
+
+nest g module <name>
+nest g controller <name>
+nest g service <name>
