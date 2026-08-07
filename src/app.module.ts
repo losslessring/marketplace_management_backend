@@ -7,6 +7,7 @@ import { CoreNodesModule } from './core-nodes/core-nodes.module'
 import { NodeTreeModule } from './node-tree/node-tree.module'
 import { UsersModule } from './users/users.module'
 import { ConnectionsModule } from './connections/connections.module';
+import { NodeDataModule } from './node-data/node-data.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { ConnectionsModule } from './connections/connections.module';
     CoreNodesModule,
     NodeTreeModule,
     ConnectionsModule,
+    NodeDataModule,
   ],
   controllers: [],
   providers: [],

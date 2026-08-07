@@ -22,6 +22,7 @@ model Application {
   userId Int
   nodeTrees NodeTree[]
   connections Connection[]
+  nodeData NodeData[]
 }
 
 model CoreNode {
@@ -34,8 +35,9 @@ model NodeTree {
   id Int @default(autoincrement()) @id
   positionX Int
   positionY Int 
-  nodeId Int
-
+  nodeId Int @unique
+  
+  nodeData NodeData?
   application Application @relation(fields: [applicationId], references: [id])
   applicationId Int
 }
@@ -47,3 +49,13 @@ model Connection {
   application Application @relation(fields: [applicationId], references: [id])
   applicationId Int
 }
+
+model NodeData {
+  id Int @default(autoincrement()) @id
+  nodeData String
+  node NodeTree @relation(fields: [nodeId], references: [nodeId])
+  nodeId Int @unique
+  application Application @relation(fields: [applicationId], references: [id])
+  applicationId Int
+}
+
