@@ -1,0 +1,2 @@
+Update or create record if not existing for node data.
+Probably with using upsert.

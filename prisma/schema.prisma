@@ -52,6 +52,7 @@ model Connection {
 
 model NodeData {
   id Int @default(autoincrement()) @id
+  nodeDataType String @default("text")
   nodeData String
   node NodeTree @relation(fields: [nodeId], references: [nodeId])
   nodeId Int @unique

@@ -1,5 +1,14 @@
-import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
+import { UpdateNodeData } from './dto/update-node-data'
 import { NodeDataService } from './node-data.service'
 
 @Controller('node-data')
@@ -15,5 +24,14 @@ export class NodeDataController {
   @UseGuards(JwtAuthGuard)
   async getApplicationNodes(@Param('ApplicationId') applicationId: string) {
     return this.nodeDataService.getNodesData(+applicationId)
+  }
+
+  @Put(':NodeId')
+  @UseGuards(JwtAuthGuard)
+  async updateNodeData(
+    @Param('NodeId') nodeId: string,
+    @Body() body: UpdateNodeData,
+  ) {
+    return this.nodeDataService.updateNodeData(+nodeId, body)
   }
 }
