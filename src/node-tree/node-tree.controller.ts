@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -12,6 +13,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 import { UserApplicationGuard } from 'src/auth/guards/user-application.guard'
 import { TokenPayload } from 'src/auth/token-payload.interface'
 import { CreateTreeNodesRequest } from './dto/create-tree-nodes.request'
+import { DeleteTreeNodesRequest } from './dto/delete-tree-nodes.request'
 import { FullUpdateTreeNodes } from './dto/full-update-tree-nodes.request'
 import { NodeTreeService } from './node-tree.service'
 
@@ -34,6 +36,15 @@ export class NodeTreeController {
     @CurrentUser() user: TokenPayload,
   ) {
     return this.nodeTreeService.fullUpdateTreeNodes(user.userId, body)
+  }
+
+  @Delete()
+  @UseGuards(JwtAuthGuard)
+  async deleteTreeNodes(
+    @Body() body: DeleteTreeNodesRequest,
+    @CurrentUser() user: TokenPayload,
+  ) {
+    return this.nodeTreeService.deleteTreeNodes(user.userId, body)
   }
 
   @Get(':ApplicationId')

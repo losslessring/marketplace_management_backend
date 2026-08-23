@@ -20,10 +20,21 @@ export class NodeDataService {
     })
   }
 
-  async updateNodeData(nodeId: number, data: UpdateNodeData) {
-    return await this.prismaService.nodeData.update({
-      where: { nodeId },
-      data: { nodeData: data.nodeData, nodeDataType: data.nodeDataType },
+  async updateNodeData(applicationId: number, data: UpdateNodeData) {
+    // return await this.prismaService.nodeData.update({
+    //   where: { nodeId },
+    //   data: { nodeData: data.nodeData, nodeDataType: data.nodeDataType },
+    // })
+
+    return await this.prismaService.nodeData.upsert({
+      where: { nodeId: data.nodeId },
+      update: { nodeData: data.nodeData, nodeDataType: data.nodeDataType },
+      create: {
+        nodeId: data.nodeId,
+        applicationId: applicationId,
+        nodeData: data.nodeData,
+        nodeDataType: data.nodeDataType,
+      },
     })
   }
 }

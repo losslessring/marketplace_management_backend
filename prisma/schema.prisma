@@ -54,7 +54,7 @@ model NodeData {
   id Int @default(autoincrement()) @id
   nodeDataType String @default("text")
   nodeData String
-  node NodeTree @relation(fields: [nodeId], references: [nodeId])
+  node NodeTree @relation(fields: [nodeId], references: [nodeId], onDelete: Cascade)
   nodeId Int @unique
   application Application @relation(fields: [applicationId], references: [id])
   applicationId Int

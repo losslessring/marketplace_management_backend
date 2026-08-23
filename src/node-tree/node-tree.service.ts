@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service'
 import { CreateTreeNodesRequest } from './dto/create-tree-nodes.request'
+import { DeleteTreeNodesRequest } from './dto/delete-tree-nodes.request'
 import { FullUpdateTreeNodes } from './dto/full-update-tree-nodes.request'
 
 @Injectable()
@@ -38,18 +39,45 @@ export class NodeTreeService {
       applicationId: data.applicationId,
     }))
 
-    return await this.prismaService.$transaction([
-      this.prismaService.nodeTree.deleteMany({
-        where: { applicationId: data.applicationId },
-      }),
-      this.prismaService.nodeTree.createMany({ data: labeledNodes }),
-    ])
+    // return await this.prismaService.$transaction([
+    // this.prismaService.nodeTree.deleteMany({
+    //   where: { applicationId: data.applicationId },
+    // }),
+    // this.prismaService.nodeTree.createMany({ data: labeledNodes }),
+    // return await this.prismaService.$transaction([
+
+    // for (const updateData of labeledNodes) {
+    // return await this.prismaService.$transaction(async (tx) =>
+    return labeledNodes.map(async (updateData) => {
+      await this.prismaService.nodeTree.upsert({
+        where: {
+          applicationId: updateData.applicationId,
+          nodeId: updateData.nodeId,
+        },
+        update: {
+          positionX: updateData.positionX,
+          positionY: updateData.positionY,
+        },
+        create: {
+          positionX: updateData.positionX,
+          positionY: updateData.positionY,
+          nodeId: updateData.nodeId,
+          applicationId: updateData.applicationId,
+        },
+      })
+    })
   }
 
   async getApplicationNodes(applicationId: number) {
     return await this.prismaService.nodeTree.findMany({
       select: { positionX: true, positionY: true, nodeId: true },
       where: { applicationId },
+    })
+  }
+
+  async deleteTreeNodes(userId: number, data: DeleteTreeNodesRequest) {
+    return await this.prismaService.nodeTree.deleteMany({
+      where: { applicationId: data.applicationId, nodeId: { in: data.ids } },
     })
   }
 }

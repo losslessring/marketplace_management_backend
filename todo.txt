@@ -1,2 +1,5 @@
 Update or create record if not existing for node data.
 Probably with using upsert.
+
+Create method for deletion nodes
+Delete nodes in tree with cascade deletion on data node

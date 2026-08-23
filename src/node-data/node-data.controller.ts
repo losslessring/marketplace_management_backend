@@ -26,12 +26,12 @@ export class NodeDataController {
     return this.nodeDataService.getNodesData(+applicationId)
   }
 
-  @Put(':NodeId')
+  @Put(':ApplicationId')
   @UseGuards(JwtAuthGuard)
   async updateNodeData(
-    @Param('NodeId') nodeId: string,
+    @Param('ApplicationId') applicationId: string,
     @Body() body: UpdateNodeData,
   ) {
-    return this.nodeDataService.updateNodeData(+nodeId, body)
+    return this.nodeDataService.updateNodeData(+applicationId, body)
   }
 }
