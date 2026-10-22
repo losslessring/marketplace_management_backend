@@ -12,6 +12,7 @@ model User {
   email String @unique
   password String
   applications Application[]
+  uiOptions UiOption[]
 }
 
 model Application {
@@ -60,3 +61,12 @@ model NodeData {
   applicationId Int
 }
 
+
+model UiOption {
+  id Int @default(autoincrement()) @id
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  globalBackgroundColor String
+  globalFontColor String
+  
+}
